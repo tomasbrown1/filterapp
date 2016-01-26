@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Filter</title>
+		<style>
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			#photo img {
+				max-width: 75vw;
+				max-height: 75vh;
+			}
+
+			#sliders {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<form>
+			<input type="text" name="url" id="url">
+			<input type="submit" value="submit" id="submit">
+		</form>
+		<div id="photo"></div>
+		<div id="sliders">
+			SLIDERS GO HERE
+			<div id="blur"><input type="range"></div>
+			<div id="brightness"></div>
+			<div id="contrast"></div>
+			<div id="drop-shadow"></div>
+			<div id="grayscale"></div>
+			<div id="hue-rotate"></div>
+			<div id="invert"></div>
+			<div id="opacity"></div>
+			<div id="saturate"></div>
+			<div id="sepia"></div>
+		</div>
+		<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+		<script>
+			
+			$('#submit').on('click', function(e) {
+				e.preventDefault();
+				var $pic = $('#url').val();
+				var $file = $pic.substr($pic.lastIndexOf('.') + 1).toLowerCase();
+				if ($file === 'jpg' || $file === 'jpeg' || $file === 'gif' || $file === 'png') {
+					$('#photo').html('<img src="' + $pic + '"/>');
+					$('#sliders').show();
+				} else {
+					$('#photo').text('Incorrect file type');
+					$('#sliders').hide();
+				}
+				$('#photo img').error(function() {
+					$('#photo').text('Link is not an image');
+					$('#sliders').hide();
+				})
+			})
+
+		</script>
+	</body>
+</html>
