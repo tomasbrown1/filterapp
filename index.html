@@ -5,9 +5,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Filter</title>
 		<style>
+			@import url(https://fonts.googleapis.com/css?family=Amatic+SC:700);
+
 			* {
 				padding: 0px;
 				margin: 0px;
+				font-family: 'Amatic SC', Serif;
+				font-weight: 700;
+				font-size: 1.2rem;
+			}
+
+			#url {
+				width: 400px;
 			}
 
 			#photo img {
@@ -18,6 +27,16 @@
 			#sliders {
 				display: none;
 			}
+
+			h2 {
+				display: inline-block;
+				width: 200px;
+				font-size: 1.5rem;
+			}
+
+			#sliders input {
+				width: 400px;
+			}
 		</style>
 	</head>
 	<body>
@@ -27,21 +46,19 @@
 		</form>
 		<div id="photo"></div>
 		<div id="sliders">
-			SLIDERS GO HERE
-			<div id="blur"><input type="range"></div>
-			<div id="brightness"></div>
-			<div id="contrast"></div>
-			<div id="drop-shadow"></div>
-			<div id="grayscale"></div>
-			<div id="hue-rotate"></div>
-			<div id="invert"></div>
-			<div id="opacity"></div>
-			<div id="saturate"></div>
-			<div id="sepia"></div>
+			<div><h2>Blur</h2><input id="blur" min="0" max="20" value="0" type="range"></div>
+			<div><h2>Brightness</h2><input id="brightness" min="0" max="200" value="100" type="range"></div>
+			<div><h2>Contrast</h2><input id="contrast" min="0" max="200" value="100" type="range"></div>
+			<div><h2>Grayscale</h2><input id="grayscale" min="0" max="100" value="0" type="range"></div>
+			<div><h2>Hue-Rotate</h2><input id="huerotate" min="0" max="360" value="0" type="range"></div>
+			<div><h2>Invert</h2><input id="invert" value="0" type="range"></div>
+			<div><h2>Opacity</h2><input id="opacity" value="0" type="range"></div>
+			<div><h2>Saturate</h2><input id="saturate" value="0" type="range"></div>
+			<div><h2>Sepia</h2><input id="sepia" value="0" type="range"></div>
 		</div>
 		<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
 		<script>
-			
+
 			$('#submit').on('click', function(e) {
 				e.preventDefault();
 				var $pic = $('#url').val();
@@ -58,6 +75,36 @@
 					$('#sliders').hide();
 				})
 			})
+
+			var blur = 0
+			var brightness = 100
+			var contrast = 100
+			var grayscale = 0
+			var huerotate = 0
+			var invert
+			var opacity
+			var saturate
+			var sepia
+
+
+			$('#sliders').on('change', function() {
+				blur = $('#blur').val();
+				brightness = $('#brightness').val();
+				contrast = $('#contrast').val();
+				grayscale = $('#grayscale').val();
+				huerotate = $('#huerotate').val();
+				// invert = $('#invert').val();
+				// opacity = $('#opacity').val();
+				// saturate = $('#saturate').val();
+				// sepia = $('#sepia').val();
+
+				 var filter = 'blur(' + blur + 'px) brightness(' + brightness + '%) contrast(' + contrast + '%) grayscale(' + grayscale + '%)'
+				  // huerotate(' + huerotate + 'deg)'
+
+				$('#photo img').css('-webkit-filter', filter);
+			})
+
+
 
 		</script>
 	</body>
