@@ -51,13 +51,23 @@
 			<div><h2>Contrast</h2><input id="contrast" min="0" max="200" value="100" type="range"></div>
 			<div><h2>Grayscale</h2><input id="grayscale" min="0" max="100" value="0" type="range"></div>
 			<div><h2>Hue-Rotate</h2><input id="huerotate" min="0" max="360" value="0" type="range"></div>
-			<div><h2>Invert</h2><input id="invert" value="0" type="range"></div>
-			<div><h2>Opacity</h2><input id="opacity" value="0" type="range"></div>
-			<div><h2>Saturate</h2><input id="saturate" value="0" type="range"></div>
-			<div><h2>Sepia</h2><input id="sepia" value="0" type="range"></div>
+			<div><h2>Invert</h2><input id="invert" min="0" max="100" value="0" type="range"></div>
+			<div><h2>Opacity</h2><input id="opacity" min="0" max="100" value="100" type="range"></div>
+			<div><h2>Saturate</h2><input id="saturate" min="0" max="300" value="100" type="range"></div>
+			<div><h2>Sepia</h2><input id="sepia" min="0" max="100" value="0" type="range"></div></br>
+			<button id="reset">Reset Sliders</button>
 		</div>
 		<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
 		<script>
+				var blur = $('#blur').val();
+				var brightness = $('#brightness').val();
+				var contrast = $('#contrast').val();
+				var grayscale = $('#grayscale').val();
+				var huerotate = $('#huerotate').val();
+				var invert = $('#invert').val();
+				var opacity = $('#opacity').val();
+				var saturate = $('#saturate').val();
+				var sepia = $('#sepia').val();
 
 			$('#submit').on('click', function(e) {
 				e.preventDefault();
@@ -74,18 +84,9 @@
 					$('#photo').text('Link is not an image');
 					$('#sliders').hide();
 				})
+				var filter = 'blur(' + blur + 'px) brightness(' + brightness + '%) contrast(' + contrast + '%) grayscale(' + grayscale + '%) hue-rotate(' + huerotate + 'deg) invert(' + invert + '%) opacity(' + opacity + '%) saturate(' + saturate + '%) sepia(' + sepia + '%)';
+				$('#photo img').css('-webkit-filter', filter);
 			})
-
-			var blur = 0
-			var brightness = 100
-			var contrast = 100
-			var grayscale = 0
-			var huerotate = 0
-			var invert
-			var opacity
-			var saturate
-			var sepia
-
 
 			$('#sliders').on('change', function() {
 				blur = $('#blur').val();
@@ -93,18 +94,27 @@
 				contrast = $('#contrast').val();
 				grayscale = $('#grayscale').val();
 				huerotate = $('#huerotate').val();
-				// invert = $('#invert').val();
-				// opacity = $('#opacity').val();
-				// saturate = $('#saturate').val();
-				// sepia = $('#sepia').val();
-
-				 var filter = 'blur(' + blur + 'px) brightness(' + brightness + '%) contrast(' + contrast + '%) grayscale(' + grayscale + '%)'
-				  // huerotate(' + huerotate + 'deg)'
-
+				invert = $('#invert').val();
+				opacity = $('#opacity').val();
+				saturate = $('#saturate').val();
+				sepia = $('#sepia').val();
+				var filter = 'blur(' + blur + 'px) brightness(' + brightness + '%) contrast(' + contrast + '%) grayscale(' + grayscale + '%) hue-rotate(' + huerotate + 'deg) invert(' + invert + '%) opacity(' + opacity + '%) saturate(' + saturate + '%) sepia(' + sepia + '%)';
 				$('#photo img').css('-webkit-filter', filter);
 			})
 
-
+			$('#reset').on('click', function() {
+				var filter = 'blur(0px) brightness(100%) contrast(100%) grayscale(0%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(100%) sepia(0%)';
+				$('#photo img').css('-webkit-filter', filter);
+				$('#blur').val(0);
+				$('#brightness').val(100);
+				$('#contrast').val(100);
+				$('#grayscale').val(0);
+				$('#huerotate').val(0);
+				$('#invert').val(0);
+				$('#opacity').val(100);
+				$('#saturate').val(100);
+				$('#sepia').val(0);
+			})
 
 		</script>
 	</body>
